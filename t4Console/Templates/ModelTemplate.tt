@@ -1,0 +1,51 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace= "t4Console.Models" #>
+namespace <#= ProjectName#>.Models
+{
+	public class <#= page.PageIdentifier#>Model
+	{
+<#
+foreach( var field in fields)
+{
+	if(field.FieldType != "button")
+	{ 
+		var varType = "";
+		switch(field.FieldType)
+		{
+			case "nvarchar": 
+							varType = "string";
+							break;
+			case "integer":	
+							varType = "int";
+							break;
+			case "decimal":	
+							varType = "decimal";
+							break;
+			case "select":	
+							varType = "string";
+							break;
+			case "datetime":	
+							varType = "DateTime";
+							break;
+			default		:
+							varType = "string";
+							break;
+		}
+#>
+		public <#= varType#> <#= field.FieldName #> { get; set;}
+<#	
+	}
+}
+#>
+	}
+}
+<#+ 
+	public string Name { get; set;}
+	public string ProjectName {get; set ;}
+	public Page page {get; set;}
+	public List<Field> fields {get; set;}
+#>
