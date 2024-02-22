@@ -46,6 +46,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ControllerTemplate.tt</DependentUpon>
     </Compile>
+    <Compile Update="Templates\DomainModelsTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DomainModelsTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\DropDownModelTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DropDownModelTemplate.tt</DependentUpon>
+    </Compile>
     <Compile Update="Templates\ModelTemplate.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -55,6 +65,16 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ViewTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\View_Details_Template.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>View_Details_Template.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\View_Index_Template.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>View_Index_Template.tt</DependentUpon>
     </Compile>
     <Compile Update="Templates\_LayoutTemplate.cs">
       <DesignTime>True</DesignTime>
@@ -81,6 +101,14 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ControllerTemplate.cs</LastGenOutput>
     </None>
+    <None Update="Templates\DomainModelsTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>DomainModelsTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="Templates\DropDownModelTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>DropDownModelTemplate.cs</LastGenOutput>
+    </None>
     <None Update="Templates\ModelTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ModelTemplate.cs</LastGenOutput>
@@ -88,6 +116,14 @@
     <None Update="Templates\ViewTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ViewTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="Templates\View_Details_Template.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>View_Details_Template.cs</LastGenOutput>
+    </None>
+    <None Update="Templates\View_Index_Template.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>View_Index_Template.cs</LastGenOutput>
     </None>
     <None Update="Templates\_LayoutTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

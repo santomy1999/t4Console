@@ -16,7 +16,7 @@ namespace t4Console.Models
         }
         public static string getLayoutSaveLocation()
         {
-            return ProjectLocation + "\\" + ProjectName + "\\Views\\" + "\\Shared\\";
+            return ProjectLocation + "\\" + ProjectName + "\\Views\\" + "Shared\\";
         }
         public static string getModelSaveLocation()
         {
@@ -30,5 +30,9 @@ namespace t4Console.Models
         {
             return ProjectLocation + "\\" + ProjectName  + "\\Views\\" + viewName;
         }
+        public static string getDomainModelSaveLocation()
+        {
+			return ProjectLocation + "\\" + ProjectName + "\\Models\\" + "DomainValues";
+		}
     }
 }

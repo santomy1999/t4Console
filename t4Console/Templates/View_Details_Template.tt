@@ -4,7 +4,7 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace= "t4Console.Models" #>
-
+@model <#=page.PageIdentifier#>Model
 @{
     ViewData["Title"] = "<#= Name#>";
 }
@@ -15,7 +15,7 @@
 			<#= page.PageTitle #>
 		</h4>
 		<hr class="my-4">
-		<form class="needs-validation" novalidate>
+		<form class="needs-validation" method="post" asp-action="" >
 			<div class="row mb-3 ">
 <#
 	int count = 0;
@@ -25,22 +25,30 @@
 		{
 #>
 				<div class="col-sm-4 themed-grid-col mb-3">
-					<label for="<#= field.FieldName #>"><#= field.DisplayName #></label>
-					<select class="custom-select d-block w-100" id="" required>
-						<option value="">Choose...</option>
-<#
-			var options = domainValues.Where(dv => dv.FieldId == field.FieldId).OrderBy(f=>f.DomainSeq).ToList();
-			foreach(var option in options)
-			{
-#>
-						<option value="<#= option.DomainName #>"><#= option.AttributeValue #></option>
-
-<#
-			}
-#>
-			
+					<label asp-for="<#= field.FieldName #>"><#= field.DisplayName #></label>
+					<select asp-for="<#= field.FieldName #>" asp-items = "Model.<#=field.FieldName#>SelectList" class="form-control" disabled>
 					</select>
 				</div>
+<#
+		}
+		else if(field.FieldType == "datetime")
+		{
+#>
+				<div class="col-sm-4 themed-grid-col">
+					<label  asp-for="<#= field.FieldName #>"><#= field.DisplayName#></label>
+					<input  type="date" class="form-control text-center" id="<#= field.FieldName #>" disabled value="@Model.<#= field.FieldName #>.ToString("yyyy-MM-dd")">
+				</div>
+			
+<#
+		}
+		else if(field.FieldType == "checkbox")
+		{
+#>
+				<div class="col-sm-4 themed-grid-col mb-3">
+					<input  asp-for="<#= field.FieldName #>" type="checkbox" class="form-check-input" id="<#= field.FieldName #> " disabled>
+					<label  asp-for="<#= field.FieldName #>" class="form-check-label" for="<#= field.FieldName #>"><#= field.DisplayName #></label>
+				</div>
+			
 <#
 		}
 		else if(field.FieldType == "checklist")
@@ -53,8 +61,8 @@
 			{
 #>				
 				<div class="col-sm-4 themed-grid-col mb-3">
-					<input type="checkbox" class="form-check-input" id="<#= option.DomainName#>">
-					<label class="form-check-label" for="<#= option.DomainName #>"><#= option.AttributeValue #></label>
+					<input  asp-for="<#= field.FieldName #>" type="checkbox" class="form-check-input" id="<#= option.DomainName#>">
+					<label  asp-for="<#= field.FieldName #>" class="form-check-label" for="<#= option.DomainName #>"><#= option.AttributeValue #></label>
 				</div>
 <#
 			}
@@ -67,9 +75,6 @@
 				case "nvarchar":
 								inputType = "text";
 								break;
-				case "datetime":
-								inputType = "date";
-								break;
 				case "decimal":
 								inputType = "number";
 								break;
@@ -81,11 +86,9 @@
 			}
 #>
 				<div class="col-sm-4 themed-grid-col">
-					<label for="<#= field.FieldName#>"><#= field.DisplayName#></label>
-					<input type="<#= inputType#>" class="form-control text-center" id="<#= field.FieldName#>" placeholder="" required>
-					<div class="invalid-feedback">
-						Valid <#= field.FieldName#> is required.
-					</div>
+					<label  asp-for="<#= field.FieldName #>"><#= field.DisplayName#></label>
+					<input  asp-for="<#= field.FieldName #>" type="<#= inputType#>" class="form-control text-center"  placeholder="" disabled>
+					
 				</div>
 <#
 		}
@@ -98,24 +101,32 @@
 #>
 			<div class="row mb-3 ">
 <#
-		if(PreviousPage !=null){	
+		if(PreviousPage !=null){
+		
 #>
 				<div class="col-sm-2 themed-grid-col mb-3">
 					<button asp-controller = "<#= PreviousPage.PageIdentifier#>" asp-action= "Index" class="btn btn-primary">Previous</button>
 				</div>
+
 <#
 		}
-		if(NextPage !=null)
-		{
 #>
 				<div class="col-sm-2 themed-grid-col mb-3">
-					<button asp-controller = "<#= NextPage.PageIdentifier#>" asp-action= "Index"  type ="submit" class="btn btn-primary">Next</button>
+					<button   type="submit" class="btn btn-primary">Save</button>
+				</div>
+<#
+		if(NextPage !=null)
+		 {
+#>
+				<div class="col-sm-2 themed-grid-col mb-3">
+					<button asp-controller = "<#= NextPage.PageIdentifier#>" asp-action= "Index"  type="submit" class="btn btn-primary">Next</button>
 				</div>
 <#		
 		}
 #>
 			</div>
 <#
+
 	}
 #>
 		</form>
@@ -129,6 +140,7 @@
     public List<Domain> domainValues {get; set;}
 	public Page? NextPage {get; set;}
 	public Page? PreviousPage {get; set;}
+
 #>
 
 

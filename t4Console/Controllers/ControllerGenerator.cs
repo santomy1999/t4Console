@@ -18,10 +18,12 @@ namespace t4Console.Controllers
         }
         public async Task GenerateController(Page page)
         {
+            var fields =await _fieldRepo.getFields(page.PageId);
             var controller = new ControllerTemplate()
             {
                 ProjectName = ProjectData.ProjectName,
                 page = page,
+                fields = fields
 
             };
             var controllerString = controller.TransformText();

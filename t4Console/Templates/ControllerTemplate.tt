@@ -4,10 +4,14 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace= "t4Console.Models" #>
+<#
+	var domainsFields = fields.Where(f => f.FieldType == "select").OrderBy(d => d.Sequence).ToList();
+#>
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using <#= ProjectName #>.Models;
-	
+using <#= ProjectName #>.Models.DomainModels;
+using Microsoft.AspNetCore.Mvc.Rendering;	
 namespace <#= ProjectName #>.Controllers
 {
 	public class <#= page.PageIdentifier #>Controller: Controller
@@ -18,7 +22,43 @@ namespace <#= ProjectName #>.Controllers
 
 		public IActionResult Index()
 		{
+			var _model = new <#= page.PageIdentifier #>Model();
+<#
+			foreach(var field in domainsFields)
+			{
+				var varName = field.FieldName.ToLower();
+#>
+			var <#=varName#>List = <#=field.FieldName#>Domains.GetAll();
+
+			_model.<#=field.FieldName#>SelectList = new List<SelectListItem>();
+
+			foreach (var <#=varName#> in <#=varName#>List)
+			{
+				_model.<#=field.FieldName#>SelectList.Add(new SelectListItem { Text = <#=varName#>.Text, Value = <#=varName#>.Value });
+			}
+<#
+			}
+#>
 			return View();
+		}
+		public IActionResult Details( <#= page.PageIdentifier #>Model _model)
+		{
+			
+			if (!ModelState.IsValid)
+			{
+				return BadRequest("Data Invalid");
+			}
+<#
+			foreach(var field in domainsFields)
+			{
+				var varName = field.FieldName.ToLower();
+#>			
+			var <#=varName #>Option = <#=field.FieldName#>Domains.GetDropDown(_model.<#=field.FieldName#>);
+			_model.<#=field.FieldName#>SelectList.Add(new SelectListItem { Text = <#=varName #>Option.Text , Value = <#=varName #>Option.Value });
+<#
+			}
+#>
+			return View(_model);
 		}
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -29,7 +69,8 @@ namespace <#= ProjectName #>.Controllers
 	}
 }
 <#+ 
-	public string Name { get; set;}
-	public string ProjectName {get; set ;}
-	public Page page {get; set;}
+	public string Name { get; set; }
+	public string ProjectName { get; set; }
+	public Page page { get; set; }
+	public List<Field> fields { get; set; }
 #>

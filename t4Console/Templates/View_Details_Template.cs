@@ -19,9 +19,9 @@ namespace t4Console.Templates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+    #line 1 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public partial class ControllerTemplate : ControllerTemplateBase
+    public partial class View_Details_Template : View_Details_TemplateBase
     {
 #line hidden
         /// <summary>
@@ -29,223 +29,366 @@ namespace t4Console.Templates
         /// </summary>
         public virtual string TransformText()
         {
+            this.Write("@model ");
             
-            #line 7 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
-
-	var domainsFields = fields.Where(f => f.FieldType == "select").OrderBy(d => d.Sequence).ToList();
-
-            
-            #line default
-            #line hidden
-            this.Write("using Microsoft.AspNetCore.Mvc;\r\nusing System.Diagnostics;\r\nusing ");
-            
-            #line 12 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ProjectName));
-            
-            #line default
-            #line hidden
-            this.Write(".Models;\r\nusing ");
-            
-            #line 13 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ProjectName));
-            
-            #line default
-            #line hidden
-            this.Write(".Models.DomainModels;\r\nusing Microsoft.AspNetCore.Mvc.Rendering;\t\r\nnamespace ");
-            
-            #line 15 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ProjectName));
-            
-            #line default
-            #line hidden
-            this.Write(".Controllers\r\n{\r\n\tpublic class ");
-            
-            #line 17 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+            #line 7 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(page.PageIdentifier));
             
             #line default
             #line hidden
-            this.Write("Controller: Controller\r\n\t{\r\n\t\tpublic ");
+            this.Write("Model\r\n@{\r\n    ViewData[\"Title\"] = \"");
             
-            #line 19 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(page.PageIdentifier));
-            
-            #line default
-            #line hidden
-            this.Write("Controller()\r\n\t\t{\r\n\t\t}\r\n\r\n\t\tpublic IActionResult Index()\r\n\t\t{\r\n\t\t\tvar _model = ne" +
-                    "w ");
-            
-            #line 25 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(page.PageIdentifier));
+            #line 9 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
-            this.Write("Model();\r\n");
+            this.Write("\";\r\n}\r\n\r\n<div class=\"container\">\r\n\t<div class=\"col-md-8 order-md-1\">\r\n\t\t<h4 class" +
+                    "=\"mb-3\">\r\n\t\t\t");
             
-            #line 26 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+            #line 15 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(page.PageTitle));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n\t\t</h4>\r\n\t\t<hr class=\"my-4\">\r\n\t\t<form class=\"needs-validation\" method=\"post\" as" +
+                    "p-action=\"\" >\r\n\t\t\t<div class=\"row mb-3 \">\r\n");
+            
+            #line 20 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
 
-			foreach(var field in domainsFields)
+	int count = 0;
+	foreach(var field in fields)
+	{
+		if(field.FieldType == "select")
+		{
+
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t\t<div class=\"col-sm-4 themed-grid-col mb-3\">\r\n\t\t\t\t\t<label asp-for=\"");
+            
+            #line 28 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
+            
+            #line default
+            #line hidden
+            this.Write("\">");
+            
+            #line 28 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.DisplayName));
+            
+            #line default
+            #line hidden
+            this.Write("</label>\r\n\t\t\t\t\t<select asp-for=\"");
+            
+            #line 29 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
+            
+            #line default
+            #line hidden
+            this.Write("\" asp-items = \"Model.");
+            
+            #line 29 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
+            
+            #line default
+            #line hidden
+            this.Write("SelectList\" class=\"form-control\" disabled>\r\n\t\t\t\t\t</select>\r\n\t\t\t\t</div>\r\n");
+            
+            #line 32 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
+
+		}
+		else if(field.FieldType == "datetime")
+		{
+
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t\t<div class=\"col-sm-4 themed-grid-col\">\r\n\t\t\t\t\t<label  asp-for=\"");
+            
+            #line 38 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
+            
+            #line default
+            #line hidden
+            this.Write("\">");
+            
+            #line 38 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.DisplayName));
+            
+            #line default
+            #line hidden
+            this.Write("</label>\r\n\t\t\t\t\t<input  type=\"date\" class=\"form-control text-center\" id=\"");
+            
+            #line 39 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
+            
+            #line default
+            #line hidden
+            this.Write("\" disabled value=\"@Model.");
+            
+            #line 39 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
+            
+            #line default
+            #line hidden
+            this.Write(".ToString(\"yyyy-MM-dd\")\">\r\n\t\t\t\t</div>\r\n\t\t\t\r\n");
+            
+            #line 42 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
+
+		}
+		else if(field.FieldType == "checkbox")
+		{
+
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t\t<div class=\"col-sm-4 themed-grid-col mb-3\">\r\n\t\t\t\t\t<input  asp-for=\"");
+            
+            #line 48 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
+            
+            #line default
+            #line hidden
+            this.Write("\" type=\"checkbox\" class=\"form-check-input\" id=\"");
+            
+            #line 48 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
+            
+            #line default
+            #line hidden
+            this.Write(" \" disabled>\r\n\t\t\t\t\t<label  asp-for=\"");
+            
+            #line 49 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
+            
+            #line default
+            #line hidden
+            this.Write("\" class=\"form-check-label\" for=\"");
+            
+            #line 49 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
+            
+            #line default
+            #line hidden
+            this.Write("\">");
+            
+            #line 49 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.DisplayName));
+            
+            #line default
+            #line hidden
+            this.Write("</label>\r\n\t\t\t\t</div>\r\n\t\t\t\r\n");
+            
+            #line 52 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
+
+		}
+		else if(field.FieldType == "checklist")
+		{
+
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t\t\r\n");
+            
+            #line 58 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
+
+			var options = domainValues.Where(dv => dv.FieldId == field.FieldId).OrderBy(f=>f.DomainSeq).ToList();
+			foreach(var option in options)
 			{
-				var varName = field.FieldName.ToLower();
 
             
             #line default
             #line hidden
-            this.Write("\t\t\tvar ");
+            this.Write("\t\t\t\t\r\n\t\t\t\t<div class=\"col-sm-4 themed-grid-col mb-3\">\r\n\t\t\t\t\t<input  asp-for=\"");
             
-            #line 31 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(varName));
-            
-            #line default
-            #line hidden
-            this.Write("List = ");
-            
-            #line 31 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+            #line 64 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
             
             #line default
             #line hidden
-            this.Write("Domains.GetAll();\r\n\r\n\t\t\t_model.");
+            this.Write("\" type=\"checkbox\" class=\"form-check-input\" id=\"");
             
-            #line 33 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+            #line 64 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(option.DomainName));
+            
+            #line default
+            #line hidden
+            this.Write("\">\r\n\t\t\t\t\t<label  asp-for=\"");
+            
+            #line 65 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
             
             #line default
             #line hidden
-            this.Write("SelectList = new List<SelectListItem>();\r\n\r\n\t\t\tforeach (var ");
+            this.Write("\" class=\"form-check-label\" for=\"");
             
-            #line 35 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(varName));
-            
-            #line default
-            #line hidden
-            this.Write(" in ");
-            
-            #line 35 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(varName));
+            #line 65 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(option.DomainName));
             
             #line default
             #line hidden
-            this.Write("List)\r\n\t\t\t{\r\n\t\t\t\t_model.");
+            this.Write("\">");
             
-            #line 37 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
-            
-            #line default
-            #line hidden
-            this.Write("SelectList.Add(new SelectListItem { Text = ");
-            
-            #line 37 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(varName));
+            #line 65 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(option.AttributeValue));
             
             #line default
             #line hidden
-            this.Write(".Text, Value = ");
+            this.Write("</label>\r\n\t\t\t\t</div>\r\n");
             
-            #line 37 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(varName));
-            
-            #line default
-            #line hidden
-            this.Write(".Value });\r\n\t\t\t}\r\n");
-            
-            #line 39 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+            #line 67 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
 
+			}
+		}
+		else
+		{
+			string inputType = "";
+			switch(field.FieldType)
+			{
+				case "nvarchar":
+								inputType = "text";
+								break;
+				case "decimal":
+								inputType = "number";
+								break;
+				case "integer":
+								inputType = "number";
+								break;
+				default:
+					break;
 			}
 
             
             #line default
             #line hidden
-            this.Write("\t\t\treturn View();\r\n\t\t}\r\n\t\tpublic IActionResult Details( ");
+            this.Write("\t\t\t\t<div class=\"col-sm-4 themed-grid-col\">\r\n\t\t\t\t\t<label  asp-for=\"");
             
-            #line 44 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(page.PageIdentifier));
-            
-            #line default
-            #line hidden
-            this.Write("Model _model)\r\n\t\t{\r\n\t\t\t\r\n\t\t\tif (!ModelState.IsValid)\r\n\t\t\t{\r\n\t\t\t\treturn BadRequest" +
-                    "(\"Data Invalid\");\r\n\t\t\t}\r\n");
-            
-            #line 51 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
-
-			foreach(var field in domainsFields)
-			{
-				var varName = field.FieldName.ToLower();
-
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t\r\n\t\t\tvar ");
-            
-            #line 56 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(varName));
-            
-            #line default
-            #line hidden
-            this.Write("Option = ");
-            
-            #line 56 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+            #line 89 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
             
             #line default
             #line hidden
-            this.Write("Domains.GetDropDown(_model.");
+            this.Write("\">");
             
-            #line 56 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+            #line 89 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.DisplayName));
+            
+            #line default
+            #line hidden
+            this.Write("</label>\r\n\t\t\t\t\t<input  asp-for=\"");
+            
+            #line 90 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
             
             #line default
             #line hidden
-            this.Write(");\r\n\t\t\t_model.");
+            this.Write("\" type=\"");
             
-            #line 57 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
-            
-            #line default
-            #line hidden
-            this.Write("SelectList.Add(new SelectListItem { Text = ");
-            
-            #line 57 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(varName));
+            #line 90 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(inputType));
             
             #line default
             #line hidden
-            this.Write("Option.Text , Value = ");
+            this.Write("\" class=\"form-control text-center\"  placeholder=\"\" disabled>\r\n\t\t\t\t\t\r\n\t\t\t\t</div>\r\n" +
+                    "");
             
-            #line 57 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(varName));
-            
-            #line default
-            #line hidden
-            this.Write("Option.Value });\r\n");
-            
-            #line 58 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+            #line 93 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
 
-			}
+		}
+	}
 
             
             #line default
             #line hidden
-            this.Write(@"			return View(_model);
+            this.Write("\t\t\t</div>\r\n");
+            
+            #line 98 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
+
+	if(page.PageIdentifier != "Home")
+	{
+
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t<div class=\"row mb-3 \">\r\n");
+            
+            #line 103 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
+
+		if(PreviousPage !=null){
+		
+
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t\t<div class=\"col-sm-2 themed-grid-col mb-3\">\r\n\t\t\t\t\t<button asp-controller = \"");
+            
+            #line 108 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(PreviousPage.PageIdentifier));
+            
+            #line default
+            #line hidden
+            this.Write("\" asp-action= \"Index\" class=\"btn btn-primary\">Previous</button>\r\n\t\t\t\t</div>\r\n\r\n");
+            
+            #line 111 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
+
 		}
 
-		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-		public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t\t<div class=\"col-sm-2 themed-grid-col mb-3\">\r\n\t\t\t\t\t<button   type=\"submit\" cla" +
+                    "ss=\"btn btn-primary\">Save</button>\r\n\t\t\t\t</div>\r\n");
+            
+            #line 117 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
+
+		if(NextPage !=null)
+		 {
+
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t\t<div class=\"col-sm-2 themed-grid-col mb-3\">\r\n\t\t\t\t\t<button asp-controller = \"");
+            
+            #line 122 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(NextPage.PageIdentifier));
+            
+            #line default
+            #line hidden
+            this.Write("\" asp-action= \"Index\"  type=\"submit\" class=\"btn btn-primary\">Next</button>\r\n\t\t\t\t<" +
+                    "/div>\r\n");
+            
+            #line 124 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
+		
+		}
+
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t</div>\r\n");
+            
+            #line 128 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
+
+
 	}
-}
-");
+
+            
+            #line default
+            #line hidden
+            this.Write("\t\t</form>\r\n\t</div>\r\n</div>\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 71 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+        #line 135 "D:\Codegen\t4Console\t4Console\Templates\View_Details_Template.tt"
  
-	public string Name { get; set; }
-	public string ProjectName { get; set; }
-	public Page page { get; set; }
-	public List<Field> fields { get; set; }
+	public string Name { get; set;}
+	public string ProjectName {get; set ;}
+	public Page page {get; set;}
+    public List<Field> fields {get; set;}
+    public List<Domain> domainValues {get; set;}
+	public Page? NextPage {get; set;}
+	public Page? PreviousPage {get; set;}
+
 
         
         #line default
@@ -259,7 +402,7 @@ namespace t4Console.Templates
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public class ControllerTemplateBase
+    public class View_Details_TemplateBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

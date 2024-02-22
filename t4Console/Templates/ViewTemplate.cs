@@ -112,7 +112,7 @@ namespace t4Console.Templates
             #line 44 "D:\Codegen\t4Console\t4Console\Templates\ViewTemplate.tt"
 
 		}
-		else if(field.FieldType == "bool")
+		else if(field.FieldType == "checklist")
 		{
 
             
@@ -236,17 +236,53 @@ namespace t4Console.Templates
             
             #line default
             #line hidden
-            this.Write(@"			<div class=""row mb-3 "">
-				<div class=""col-sm-2 themed-grid-col mb-3"">
-					<button type=""button"" class=""btn btn-primary"">Submit</button>
-				</div>
-				<div class=""col-sm-2 themed-grid-col mb-3"">
-					<button type=""button"" class=""btn btn-primary"">Cancel</button>
-				</div>
-			</div>
-");
+            this.Write("\t\t\t<div class=\"row mb-3 \">\r\n");
             
-            #line 107 "D:\Codegen\t4Console\t4Console\Templates\ViewTemplate.tt"
+            #line 100 "D:\Codegen\t4Console\t4Console\Templates\ViewTemplate.tt"
+
+		if(PreviousPage !=null){	
+
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t\t<div class=\"col-sm-2 themed-grid-col mb-3\">\r\n\t\t\t\t\t<button asp-controller = \"");
+            
+            #line 104 "D:\Codegen\t4Console\t4Console\Templates\ViewTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(PreviousPage.PageIdentifier));
+            
+            #line default
+            #line hidden
+            this.Write("\" asp-action= \"Index\" class=\"btn btn-primary\">Previous</button>\r\n\t\t\t\t</div>\r\n");
+            
+            #line 106 "D:\Codegen\t4Console\t4Console\Templates\ViewTemplate.tt"
+
+		}
+		if(NextPage !=null)
+		{
+
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t\t<div class=\"col-sm-2 themed-grid-col mb-3\">\r\n\t\t\t\t\t<button asp-controller = \"");
+            
+            #line 112 "D:\Codegen\t4Console\t4Console\Templates\ViewTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(NextPage.PageIdentifier));
+            
+            #line default
+            #line hidden
+            this.Write("\" asp-action= \"Index\"  type =\"submit\" class=\"btn btn-primary\">Next</button>\r\n\t\t\t\t" +
+                    "</div>\r\n");
+            
+            #line 114 "D:\Codegen\t4Console\t4Console\Templates\ViewTemplate.tt"
+		
+		}
+
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t</div>\r\n");
+            
+            #line 118 "D:\Codegen\t4Console\t4Console\Templates\ViewTemplate.tt"
 
 	}
 
@@ -257,13 +293,15 @@ namespace t4Console.Templates
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 113 "D:\Codegen\t4Console\t4Console\Templates\ViewTemplate.tt"
+        #line 124 "D:\Codegen\t4Console\t4Console\Templates\ViewTemplate.tt"
  
 	public string Name { get; set;}
 	public string ProjectName {get; set ;}
 	public Page page {get; set;}
     public List<Field> fields {get; set;}
     public List<Domain> domainValues {get; set;}
+	public Page? NextPage {get; set;}
+	public Page? PreviousPage {get; set;}
 
         
         #line default
