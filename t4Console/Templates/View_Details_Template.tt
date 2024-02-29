@@ -36,9 +36,29 @@
 #>
 				<div class="col-sm-4 themed-grid-col">
 					<label  asp-for="<#= field.FieldName #>"><#= field.DisplayName#></label>
-					<input  type="date" class="form-control text-center" id="<#= field.FieldName #>" disabled value="@Model.<#= field.FieldName #>.ToString("yyyy-MM-dd")">
+					<input  type="date" class="form-control text-center" id="<#= field.FieldName #>" disabled value="@Model.<#= field.FieldName #><# if(!Convert.ToBoolean(field.Required)){#>?<#}#>.ToString("yyyy-MM-dd")">
 				</div>
-			
+<#
+		}
+		else if(field.FieldType == "Radio")
+		{
+#>
+				<div class="col-sm-4 themed-grid-col">
+                    <div>
+                        <label><#= field.DisplayName #></label>
+                    </div>
+<#			var options = domainValues.Where(dv => dv.FieldId == field.FieldId).OrderBy(f=>f.DomainSeq).ToList();
+			foreach(var option in options)
+			{
+#>
+					<div class="form-check form-check-inline">
+                        @Html.RadioButtonFor(m => m.<#= field.FieldName #>,"<#= option.AttributeValue #>",new { id = "<#= field.FieldName #><#= option.DomainName #>" ,@class ="form-check-input"})
+                        <label for="<#= field.FieldName #><#= option.DomainName #>" class="form-check-label"><#= option.AttributeValue #></label>
+                    </div>
+<#
+			}
+#>
+                </div>
 <#
 		}
 		else if(field.FieldType == "checkbox")

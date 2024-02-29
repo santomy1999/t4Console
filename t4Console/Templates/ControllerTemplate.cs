@@ -72,17 +72,35 @@ namespace t4Console.Templates
             
             #line default
             #line hidden
-            this.Write("Controller()\r\n\t\t{\r\n\t\t}\r\n\r\n\t\tpublic IActionResult Index()\r\n\t\t{\r\n\t\t\tvar _model = ne" +
-                    "w ");
+            this.Write("Controller()\r\n\t\t{\r\n\t\t}\r\n\r\n\t\tpublic IActionResult Index()\r\n\t\t{\r\n");
             
             #line 25 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+
+			if(domainsFields.Any())
+			{
+
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t\tvar _model = new ");
+            
+            #line 29 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(page.PageIdentifier));
             
             #line default
             #line hidden
             this.Write("Model();\r\n");
             
-            #line 26 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+            #line 30 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+
+			}
+
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t\r\n\t\t\t\r\n");
+            
+            #line 34 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
 
 			foreach(var field in domainsFields)
 			{
@@ -93,72 +111,94 @@ namespace t4Console.Templates
             #line hidden
             this.Write("\t\t\tvar ");
             
-            #line 31 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+            #line 39 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(varName));
             
             #line default
             #line hidden
             this.Write("List = ");
             
-            #line 31 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+            #line 39 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
             
             #line default
             #line hidden
             this.Write("Domains.GetAll();\r\n\r\n\t\t\t_model.");
             
-            #line 33 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+            #line 41 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
             
             #line default
             #line hidden
             this.Write("SelectList = new List<SelectListItem>();\r\n\r\n\t\t\tforeach (var ");
             
-            #line 35 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+            #line 43 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(varName));
             
             #line default
             #line hidden
             this.Write(" in ");
             
-            #line 35 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+            #line 43 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(varName));
             
             #line default
             #line hidden
             this.Write("List)\r\n\t\t\t{\r\n\t\t\t\t_model.");
             
-            #line 37 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+            #line 45 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
             
             #line default
             #line hidden
             this.Write("SelectList.Add(new SelectListItem { Text = ");
             
-            #line 37 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+            #line 45 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(varName));
             
             #line default
             #line hidden
             this.Write(".Text, Value = ");
             
-            #line 37 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+            #line 45 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(varName));
             
             #line default
             #line hidden
             this.Write(".Value });\r\n\t\t\t}\r\n");
             
-            #line 39 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+            #line 47 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+
+			}
+			if(domainsFields.Any())
+			{
+
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t\treturn View(_model);\r\n");
+            
+            #line 53 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+
+			}
+			else
+			{
+
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t\treturn View();\r\n");
+            
+            #line 59 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
 
 			}
 
             
             #line default
             #line hidden
-            this.Write("\t\t\treturn View();\r\n\t\t}\r\n\t\tpublic IActionResult Details( ");
+            this.Write("\t\t\t\r\n\t\t\t\r\n\t\t}\r\n\t\tpublic IActionResult Details( ");
             
-            #line 44 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+            #line 65 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(page.PageIdentifier));
             
             #line default
@@ -166,7 +206,7 @@ namespace t4Console.Templates
             this.Write("Model _model)\r\n\t\t{\r\n\t\t\t\r\n\t\t\tif (!ModelState.IsValid)\r\n\t\t\t{\r\n\t\t\t\treturn BadRequest" +
                     "(\"Data Invalid\");\r\n\t\t\t}\r\n");
             
-            #line 51 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+            #line 72 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
 
 			foreach(var field in domainsFields)
 			{
@@ -177,49 +217,49 @@ namespace t4Console.Templates
             #line hidden
             this.Write("\t\t\t\r\n\t\t\tvar ");
             
-            #line 56 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+            #line 77 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(varName));
             
             #line default
             #line hidden
             this.Write("Option = ");
             
-            #line 56 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+            #line 77 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
             
             #line default
             #line hidden
             this.Write("Domains.GetDropDown(_model.");
             
-            #line 56 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+            #line 77 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
             
             #line default
             #line hidden
             this.Write(");\r\n\t\t\t_model.");
             
-            #line 57 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+            #line 78 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
             
             #line default
             #line hidden
             this.Write("SelectList.Add(new SelectListItem { Text = ");
             
-            #line 57 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+            #line 78 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(varName));
             
             #line default
             #line hidden
             this.Write("Option.Text , Value = ");
             
-            #line 57 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+            #line 78 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(varName));
             
             #line default
             #line hidden
             this.Write("Option.Value });\r\n");
             
-            #line 58 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+            #line 79 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
 
 			}
 
@@ -240,7 +280,7 @@ namespace t4Console.Templates
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 71 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
+        #line 92 "D:\Codegen\t4Console\t4Console\Templates\ControllerTemplate.tt"
  
 	public string Name { get; set; }
 	public string ProjectName { get; set; }

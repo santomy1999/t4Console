@@ -22,7 +22,15 @@ namespace <#= ProjectName #>.Controllers
 
 		public IActionResult Index()
 		{
-			var _model = new <#= page.PageIdentifier #>Model();
+<#
+			if(domainsFields.Any())
+			{
+#>
+				var _model = new <#= page.PageIdentifier #>Model();
+<#
+			}
+#>			
+			
 <#
 			foreach(var field in domainsFields)
 			{
@@ -38,8 +46,21 @@ namespace <#= ProjectName #>.Controllers
 			}
 <#
 			}
+			if(domainsFields.Any())
+			{
 #>
-			return View();
+				return View(_model);
+<#
+			}
+			else
+			{
+#>
+				return View();
+<#
+			}
+#>
+			
+			
 		}
 		public IActionResult Details( <#= page.PageIdentifier #>Model _model)
 		{

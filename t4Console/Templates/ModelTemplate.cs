@@ -82,6 +82,19 @@ foreach( var field in fields)
             
             #line default
             #line hidden
+            
+            #line 38 "D:\Codegen\t4Console\t4Console\Templates\ModelTemplate.tt"
+ if(!Convert.ToBoolean(field.Required)){
+            
+            #line default
+            #line hidden
+            this.Write("?");
+            
+            #line 38 "D:\Codegen\t4Console\t4Console\Templates\ModelTemplate.tt"
+}
+            
+            #line default
+            #line hidden
             this.Write(" ");
             
             #line 38 "D:\Codegen\t4Console\t4Console\Templates\ModelTemplate.tt"

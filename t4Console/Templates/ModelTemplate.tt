@@ -35,7 +35,7 @@ foreach( var field in fields)
 						break;
 	}
 #>
-		public <#= varType#> <#= field.FieldName #> { get; set;}
+		public <#= varType#><# if(!Convert.ToBoolean(field.Required)){#>?<#}#> <#= field.FieldName #> { get; set;}
 <#	
 	if(field.FieldType=="select")
 	{

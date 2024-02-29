@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace t4Console.Controllers
                 fields = fields
 
             };
-            var controllerString = controller.TransformText();
+			var controllerString = controller.TransformText();
             string dirName = ProjectData.getControllerSaveLocation();
 
             string fileName = dirName + page.PageIdentifier + "Controller.cs";

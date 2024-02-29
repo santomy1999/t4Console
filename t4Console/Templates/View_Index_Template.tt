@@ -26,20 +26,11 @@
 #>
 				<div class="col-sm-4 themed-grid-col mb-3">
 					<label asp-for="<#= field.FieldName #>"><#= field.DisplayName #></label>
-					<select asp-for="<#= field.FieldName #>" class="form-select" required>
+					<select asp-for="<#= field.FieldName #>" asp-items="Model.<#= field.FieldName #>SelectList" class="form-select" <# if(Convert.ToBoolean(field.Required)){#>required<#}#> >
 						<option value="">Choose...</option>
-<#
-			var options = domainValues.Where(dv => dv.FieldId == field.FieldId).OrderBy(f=>f.DomainSeq).ToList();
-			foreach(var option in options)
-			{
-#>
-						<option value="<#= option.DomainName #>"><#= option.AttributeValue #></option>
-
-<#
-			}
-#>
-			
+		
 					</select>
+	<#= field.DispCondition!=null ? field.DispCondition : "" #>
 				</div>
 <#
 		}
@@ -69,6 +60,27 @@
 <#
 			}
 		}
+		else if(field.FieldType == "Radio")
+		{
+#>
+				<div class="col-sm-4 themed-grid-col">
+                    <div>
+                        <label><#= field.DisplayName #></label>
+                    </div>
+<#			var options = domainValues.Where(dv => dv.FieldId == field.FieldId).OrderBy(f=>f.DomainSeq).ToList();
+			foreach(var option in options)
+			{
+#>
+					<div class="form-check form-check-inline  mt-2 mb-4">
+                        @Html.RadioButtonFor(m => m.<#= field.FieldName #>,"<#= option.AttributeValue #>",new { id = "<#= field.FieldName #><#= option.DomainName #>" ,@class ="form-check-input"})
+                        <label for="<#= field.FieldName #><#= option.DomainName #>" class="form-check-label"><#= option.AttributeValue #></label>
+                    </div>
+<#
+			}
+#>
+                </div>
+<#
+		}
 		else
 		{
 			string inputType = "";
@@ -92,7 +104,10 @@
 #>
 				<div class="col-sm-4 themed-grid-col">
 					<label  asp-for="<#= field.FieldName #>"><#= field.DisplayName#></label>
-					<input  asp-for="<#= field.FieldName #>" type="<#= inputType#>" class="form-control text-center" id="<#= field.FieldName#>" placeholder="" required>
+					<input  asp-for="<#= field.FieldName #>" type="<#= inputType#>" class="form-control text-center" id="<#= field.FieldName#>" placeholder="" <# if(Convert.ToBoolean(field.Required)){#>required<#}#>>
+					
+					<#= field.DispCondition!=null ? field.DispCondition : "" #>
+
 					<div class="invalid-feedback">
 						Valid <#= field.DisplayName#> is required.
 					</div>
