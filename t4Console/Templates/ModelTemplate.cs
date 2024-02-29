@@ -29,83 +29,118 @@ namespace t4Console.Templates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("namespace ");
+            this.Write("using Microsoft.AspNetCore.Mvc.Rendering;\r\nnamespace ");
             
-            #line 7 "D:\Codegen\t4Console\t4Console\Templates\ModelTemplate.tt"
+            #line 8 "D:\Codegen\t4Console\t4Console\Templates\ModelTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectName));
             
             #line default
             #line hidden
             this.Write(".Models\r\n{\r\n\tpublic class ");
             
-            #line 9 "D:\Codegen\t4Console\t4Console\Templates\ModelTemplate.tt"
+            #line 10 "D:\Codegen\t4Console\t4Console\Templates\ModelTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(page.PageIdentifier));
             
             #line default
             #line hidden
             this.Write("Model\r\n\t{\r\n");
             
-            #line 11 "D:\Codegen\t4Console\t4Console\Templates\ModelTemplate.tt"
+            #line 12 "D:\Codegen\t4Console\t4Console\Templates\ModelTemplate.tt"
 
 foreach( var field in fields)
 {
-	if(field.FieldType != "button")
-	{ 
-		var varType = "";
-		switch(field.FieldType)
-		{
-			case "nvarchar": 
-							varType = "string";
-							break;
-			case "integer":	
-							varType = "int";
-							break;
-			case "decimal":	
-							varType = "decimal";
-							break;
-			case "select":	
-							varType = "string";
-							break;
-			case "datetime":	
-							varType = "DateTime";
-							break;
-			default		:
-							varType = "string";
-							break;
-		}
+	var varType = "";
+	switch(field.FieldType)
+	{
+		case "nvarchar": 
+						varType = "string";
+						break;
+		case "integer":	
+						varType = "int";
+						break;
+		case "decimal":	
+						varType = "decimal";
+						break;
+		case "select":	
+						varType = "string";
+						break;
+		case "datetime":	
+						varType = "DateTime";
+						break;
+		default		:
+						varType = "string";
+						break;
+	}
 
             
             #line default
             #line hidden
             this.Write("\t\tpublic ");
             
-            #line 39 "D:\Codegen\t4Console\t4Console\Templates\ModelTemplate.tt"
+            #line 38 "D:\Codegen\t4Console\t4Console\Templates\ModelTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(varType));
+            
+            #line default
+            #line hidden
+            
+            #line 38 "D:\Codegen\t4Console\t4Console\Templates\ModelTemplate.tt"
+ if(!Convert.ToBoolean(field.Required)){
+            
+            #line default
+            #line hidden
+            this.Write("?");
+            
+            #line 38 "D:\Codegen\t4Console\t4Console\Templates\ModelTemplate.tt"
+}
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 39 "D:\Codegen\t4Console\t4Console\Templates\ModelTemplate.tt"
+            #line 38 "D:\Codegen\t4Console\t4Console\Templates\ModelTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
             
             #line default
             #line hidden
             this.Write(" { get; set;}\r\n");
             
-            #line 40 "D:\Codegen\t4Console\t4Console\Templates\ModelTemplate.tt"
+            #line 39 "D:\Codegen\t4Console\t4Console\Templates\ModelTemplate.tt"
 	
+	if(field.FieldType=="select")
+	{
+
+            
+            #line default
+            #line hidden
+            this.Write("\t\t//Dropdown for ");
+            
+            #line 43 "D:\Codegen\t4Console\t4Console\Templates\ModelTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n\t\tpublic List<SelectListItem>? ");
+            
+            #line 44 "D:\Codegen\t4Console\t4Console\Templates\ModelTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
+            
+            #line default
+            #line hidden
+            this.Write("SelectList = new List<SelectListItem>();\r\n");
+            
+            #line 45 "D:\Codegen\t4Console\t4Console\Templates\ModelTemplate.tt"
+
 	}
 }
 
             
             #line default
             #line hidden
-            this.Write("\t}\r\n}\r\n");
+            this.Write("\t\r\n\t}\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 46 "D:\Codegen\t4Console\t4Console\Templates\ModelTemplate.tt"
+        #line 52 "D:\Codegen\t4Console\t4Console\Templates\ModelTemplate.tt"
  
 	public string Name { get; set;}
 	public string ProjectName {get; set ;}

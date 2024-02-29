@@ -74,6 +74,10 @@ public partial class CGDBContext : DbContext
             entity.Property(e => e.FieldId)
                 .ValueGeneratedNever()
                 .HasColumnName("fieldId");
+            entity.Property(e => e.DataSize).HasColumnName("dataSize");
+            entity.Property(e => e.DispCondition)
+                .HasMaxLength(45)
+                .HasColumnName("dispCondition");
             entity.Property(e => e.DisplayName)
                 .HasMaxLength(45)
                 .HasColumnName("displayName");
@@ -86,7 +90,19 @@ public partial class CGDBContext : DbContext
             entity.Property(e => e.FieldType)
                 .HasMaxLength(45)
                 .HasColumnName("fieldType");
+            entity.Property(e => e.MaxSize)
+                .HasMaxLength(25)
+                .HasColumnName("maxSize");
+            entity.Property(e => e.MinSize)
+                .HasMaxLength(25)
+                .HasColumnName("minSize");
             entity.Property(e => e.PageId).HasColumnName("pageId");
+            entity.Property(e => e.ReqCondition)
+                .HasMaxLength(45)
+                .HasColumnName("reqCondition");
+            entity.Property(e => e.Required)
+                .HasDefaultValueSql("'0'")
+                .HasColumnName("required");
             entity.Property(e => e.Sequence).HasColumnName("sequence");
 
             entity.HasOne(d => d.Page).WithMany(p => p.Fields)

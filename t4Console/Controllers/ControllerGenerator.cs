@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,13 +19,15 @@ namespace t4Console.Controllers
         }
         public async Task GenerateController(Page page)
         {
+            var fields =await _fieldRepo.getFields(page.PageId);
             var controller = new ControllerTemplate()
             {
                 ProjectName = ProjectData.ProjectName,
                 page = page,
+                fields = fields
 
             };
-            var controllerString = controller.TransformText();
+			var controllerString = controller.TransformText();
             string dirName = ProjectData.getControllerSaveLocation();
 
             string fileName = dirName + page.PageIdentifier + "Controller.cs";

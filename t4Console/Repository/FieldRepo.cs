@@ -17,24 +17,25 @@ namespace t4Console.Repository
         }
         public async Task<Page> getPage(int pageId)
         {
-            var pages = await _dbContext.Pages.FindAsync("1");
-            return pages;
+			return await _dbContext.Pages.FindAsync(pageId);
         }
         public async Task<List<Page>> getAllPages()
         {
-            var pages = await _dbContext.Pages.ToListAsync();
-            return pages;
+			return await _dbContext.Pages.ToListAsync();
         }
         public async Task<List<Field>> getFields(int pageId)
         {
-            var fields = await _dbContext.Fields.Where(f=>f.PageId==pageId).OrderBy(f=>f.Sequence).ToListAsync();
-
-            return fields;
+			return await _dbContext.Fields.Where(f=>f.PageId==pageId).OrderBy(f=>f.Sequence).ToListAsync();
         }
         public async Task<List<Domain>> GetPageDomains(int pageId)
         {
-            var domain = await _dbContext.Domains.Where(d => d.PageId ==pageId).OrderBy(f => f.DomainSeq).ToListAsync();
-            return domain;
+            return await _dbContext.Domains.Where(d => d.PageId == pageId).OrderBy(d => d.DomainSeq).ToListAsync();
+           
+        }
+        public async Task<List<Domain>> GetFieldDomains(int FieldId)
+        {
+           return await _dbContext.Domains.Where(d => d.FieldId == FieldId).OrderBy(d => d.DomainSeq).ToListAsync();
+            
         }
     }
 }

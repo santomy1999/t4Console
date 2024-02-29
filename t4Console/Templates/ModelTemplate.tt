@@ -4,6 +4,7 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace= "t4Console.Models" #>
+using Microsoft.AspNetCore.Mvc.Rendering;
 namespace <#= ProjectName#>.Models
 {
 	public class <#= page.PageIdentifier#>Model
@@ -11,36 +12,41 @@ namespace <#= ProjectName#>.Models
 <#
 foreach( var field in fields)
 {
-	if(field.FieldType != "button")
-	{ 
-		var varType = "";
-		switch(field.FieldType)
-		{
-			case "nvarchar": 
-							varType = "string";
-							break;
-			case "integer":	
-							varType = "int";
-							break;
-			case "decimal":	
-							varType = "decimal";
-							break;
-			case "select":	
-							varType = "string";
-							break;
-			case "datetime":	
-							varType = "DateTime";
-							break;
-			default		:
-							varType = "string";
-							break;
-		}
+	var varType = "";
+	switch(field.FieldType)
+	{
+		case "nvarchar": 
+						varType = "string";
+						break;
+		case "integer":	
+						varType = "int";
+						break;
+		case "decimal":	
+						varType = "decimal";
+						break;
+		case "select":	
+						varType = "string";
+						break;
+		case "datetime":	
+						varType = "DateTime";
+						break;
+		default		:
+						varType = "string";
+						break;
+	}
 #>
-		public <#= varType#> <#= field.FieldName #> { get; set;}
+		public <#= varType#><# if(!Convert.ToBoolean(field.Required)){#>?<#}#> <#= field.FieldName #> { get; set;}
 <#	
+	if(field.FieldType=="select")
+	{
+#>
+		//Dropdown for <#= field.FieldName #>
+		public List<SelectListItem>? <#= field.FieldName #>SelectList = new List<SelectListItem>();
+<#
 	}
 }
 #>
+	
 	}
 }
 <#+ 

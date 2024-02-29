@@ -48,6 +48,11 @@ if (result == -1) {
         Environment.Exit(result);
     }
 }
+else if(result == -2)
+{
+	Console.WriteLine("Check if directory Exists");
+	Environment.Exit(result);
+}
 else if (result == 0)
 {
     Console.WriteLine("Created Project in location " + ProjectData.ProjectLocation + "\\" + ProjectData.ProjectName);
@@ -62,15 +67,24 @@ var pages = await fieldRepo.getAllPages();
 layoutGenerator.GenerateLayout(pages);
 /*Generating Controllers, Views and Models*/
 Console.WriteLine("Generating Controllers, Views and Models");
-foreach (var page in pages)
+
+for (int i = 0; i < pages.Count; i++)
 {
-    Console.WriteLine($"\tGenerating {page.PageIdentifier}Controller...");
-    await controllerGenerator.GenerateController(page);
-    Console.WriteLine($"\tGenerating {page.PageIdentifier}View...");
-    await viewGenerator.GenerateView(page);
-    Console.WriteLine($"\tGenerating {page.PageIdentifier}Model...\n");
-    await modelGenerator.GenerateModel(page);
+	var page = pages[i];
+	Console.WriteLine($"\tGenerating {page.PageIdentifier}Controller...");
+	await controllerGenerator.GenerateController(page);
+	
+	Console.WriteLine($"\tGenerating {page.PageIdentifier}Model...\n");
+	await modelGenerator.GenerateModel(page);
+
+	Console.WriteLine($"\tGenerating {page.PageIdentifier}View...");
+	var previousPage = (i - 1 >= 0) ? pages[i - 1] : null;
+	var nextPage = (i + 1 < pages.Count) ? pages[i + 1] : null;
+	await viewGenerator.GenerateView(page, previousPage, nextPage);
 }
+Console.WriteLine("Generating other models..");
+MiscGenerator.DropDownModelGenerator();
+
 Console.WriteLine("Code Generation Complete :)");
 
 

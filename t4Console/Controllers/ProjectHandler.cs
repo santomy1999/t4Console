@@ -16,9 +16,17 @@ namespace t4Console.Controllers
         }
         public int CreateProject(string projectName,string location)
         {
-            /*Change directory*/
-            _process.StartInfo.WorkingDirectory = location;
-            if(!Directory.Exists(location+ "\\" + projectName))           {
+           
+
+			// Check if the working directory was changed properly
+			if (!Directory.Exists(location) )
+			{
+				Console.WriteLine("Failed to change directory.");
+				return -2;
+			}
+			/*Change directory*/
+			_process.StartInfo.WorkingDirectory = location;
+			if (!Directory.Exists(location+ "\\" + projectName))           {
                 var result = RunCmdCommand("dotnet", $"new mvc -o {projectName}");
                 return result;
             }
@@ -62,5 +70,45 @@ namespace t4Console.Controllers
 
             return exitCode;
         }
+        public int RunScaffoldCmd(List<string> Tables)
+        {
+			// Path to dotnet.exe
+			string dotnetPath = "path/to/dotnet.exe";
+
+			// Scaffold-DbContext command
+			string scaffoldCommand = "ef";
+
+			// Arguments for the Scaffold-DbContext command
+			string arguments = $"dbcontext scaffold \"server=localhost;database=new_schema;uid=root;password=root\" Pomelo.EntityFrameworkCore.MySql -o Models -c CGDBContext";
+
+			// Create process start info
+			ProcessStartInfo startInfo = new ProcessStartInfo
+			{
+				FileName = dotnetPath,
+				Arguments = $"{scaffoldCommand} {arguments}",
+				RedirectStandardOutput = true,
+				RedirectStandardError = true,
+				UseShellExecute = false,
+				CreateNoWindow = true
+			};
+
+			// Start the process
+			using (Process process = Process.Start(startInfo))
+			{
+				// Read the output and error streams
+				string output = process.StandardOutput.ReadToEnd();
+				string error = process.StandardError.ReadToEnd();
+
+				// Wait for the process to exit
+				process.WaitForExit();
+
+				// Output the result
+				Console.WriteLine("Output:");
+				Console.WriteLine(output);
+				Console.WriteLine("Error:");
+				Console.WriteLine(error);
+			}
+            return 0;
+		}
     }
 }

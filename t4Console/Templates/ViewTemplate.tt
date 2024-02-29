@@ -43,7 +43,7 @@
 				</div>
 <#
 		}
-		else if(field.FieldType == "bool")
+		else if(field.FieldType == "checklist")
 		{
 #>
 				
@@ -97,12 +97,23 @@
 	{
 #>
 			<div class="row mb-3 ">
+<#
+		if(PreviousPage !=null){	
+#>
 				<div class="col-sm-2 themed-grid-col mb-3">
-					<button type="button" class="btn btn-primary">Submit</button>
+					<button asp-controller = "<#= PreviousPage.PageIdentifier#>" asp-action= "Index" class="btn btn-primary">Previous</button>
 				</div>
+<#
+		}
+		if(NextPage !=null)
+		{
+#>
 				<div class="col-sm-2 themed-grid-col mb-3">
-					<button type="button" class="btn btn-primary">Cancel</button>
+					<button asp-controller = "<#= NextPage.PageIdentifier#>" asp-action= "Index"  type ="submit" class="btn btn-primary">Next</button>
 				</div>
+<#		
+		}
+#>
 			</div>
 <#
 	}
@@ -116,6 +127,8 @@
 	public Page page {get; set;}
     public List<Field> fields {get; set;}
     public List<Domain> domainValues {get; set;}
+	public Page? NextPage {get; set;}
+	public Page? PreviousPage {get; set;}
 #>
 
 
