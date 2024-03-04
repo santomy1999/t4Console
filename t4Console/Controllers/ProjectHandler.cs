@@ -22,14 +22,24 @@ namespace t4Console.Controllers
 			if (!Directory.Exists(location) )
 			{
 				Console.WriteLine("Failed to change directory.");
+				// Dispose the process
+				_process.Dispose();
 				return -2;
 			}
 			/*Change directory*/
 			_process.StartInfo.WorkingDirectory = location;
+
 			if (!Directory.Exists(location+ "\\" + projectName))           {
-                var result = RunCmdCommand("dotnet", $"new mvc -o {projectName}");
-                return result;
+				Directory.CreateDirectory(location + "\\" + projectName);
+				_process.StartInfo.WorkingDirectory = location+ "\\" + projectName;
+				var result = RunCmdCommand("dotnet", $"new sln -n {projectName}");
+                    result = RunCmdCommand("dotnet", $"new mvc -o {projectName}");
+					result = RunCmdCommand("dotnet", $"sln add {projectName}/{projectName}.csproj");
+				// Dispose the process
+				_process.Dispose();
+				return result;
             }
+
             return -1;
             
         }
@@ -61,8 +71,7 @@ namespace t4Console.Controllers
             // Get the exit code
             int exitCode = _process.ExitCode;
 
-            // Dispose the process
-            _process.Dispose();
+           
 
             // Display the exit code
             /*Console.WriteLine($"Process exited with code {exitCode}");*/
