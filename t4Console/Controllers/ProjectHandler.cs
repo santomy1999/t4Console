@@ -21,10 +21,8 @@ namespace t4Console.Controllers
 			// Check if the working directory was changed properly
 			if (!Directory.Exists(location) )
 			{
-				Console.WriteLine("Failed to change directory.");
-				// Dispose the process
-				_process.Dispose();
-				return -2;
+				Directory.CreateDirectory(location);
+				Console.WriteLine("Created new directory -\t" + location);
 			}
 			/*Change directory*/
 			_process.StartInfo.WorkingDirectory = location;
