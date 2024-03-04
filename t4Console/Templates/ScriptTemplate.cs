@@ -7,20 +7,21 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace t4Console
+namespace t4Console.Templates
 {
     using System.Linq;
     using System.Text;
     using System.Collections.Generic;
+    using t4Console.Models;
     using System;
     
     /// <summary>
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\Codegen\t4Console\t4Console\PageTemplate.tt"
+    #line 1 "D:\Codegen\t4Console\t4Console\Templates\ScriptTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public partial class PageTemplate : PageTemplateBase
+    public partial class ScriptTemplate : ScriptTemplateBase
     {
 #line hidden
         /// <summary>
@@ -28,198 +29,60 @@ namespace t4Console
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("\r\n\r\n<html>\r\n\t<head>\r\n\t\t<title>\r\n\t\t\t");
+            this.Write("<script>\r\n\tdocument.addEventListener(\'DOMContentLoaded\', function () {\r\n");
             
-            #line 11 "D:\Codegen\t4Console\t4Console\PageTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
-            
-            #line default
-            #line hidden
-            this.Write("\r\n\t\t</title>\r\n\t</head>\r\n\t<body>\r\n\t\t<center>\r\n\t\t\t");
-            
-            #line 16 "D:\Codegen\t4Console\t4Console\PageTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
-            
-            #line default
-            #line hidden
-            this.Write("\r\n\t\t</center>\r\n\t\t</br></br>\r\n\t\t<table align=\"center\" >\r\n\t\t\t");
-            
-            #line 20 "D:\Codegen\t4Console\t4Console\PageTemplate.tt"
- 
-			// Iterate through the list of fields
-			foreach (var field in fields) 
-			{
-			
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t<tr>\r\n\t\t\t\t<td>\r\n\t\t\t\t");
-            
-            #line 27 "D:\Codegen\t4Console\t4Console\PageTemplate.tt"
+            #line 9 "D:\Codegen\t4Console\t4Console\Templates\ScriptTemplate.tt"
 
-				if(field.FieldType!="button"){
-				
+	foreach(var field in fields)
+	{
+
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t<label for=\"");
+            this.Write("\tfunction ");
             
-            #line 30 "D:\Codegen\t4Console\t4Console\PageTemplate.tt"
+            #line 13 "D:\Codegen\t4Console\t4Console\Templates\ScriptTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
             
             #line default
             #line hidden
-            this.Write("\">");
+            this.Write("Required() {\r\n\t\tdocument.getElementById(\"");
             
-            #line 30 "D:\Codegen\t4Console\t4Console\PageTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(field.DisplayName ?? field.FieldName));
-            
-            #line default
-            #line hidden
-            this.Write(":</label>\r\n\t\t\t\t");
-            
-            #line 31 "D:\Codegen\t4Console\t4Console\PageTemplate.tt"
-
-				}
-				
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t\t</td>\r\n\t\t\t\t");
-            
-            #line 35 "D:\Codegen\t4Console\t4Console\PageTemplate.tt"
-
-				if(field.FieldType == "select")	
-				{
-				
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t\t\t<td>\r\n\t\t\t\t\t\t<select> \r\n\t\t\t\t\t\t\t");
-            
-            #line 41 "D:\Codegen\t4Console\t4Console\PageTemplate.tt"
-
-							var options = domainData.Where(d => d.FieldId == field.FieldId).ToList();
-							foreach (var option in domainData) 
-							{
-							
-            
-            #line default
-            #line hidden
-            this.Write("\t\r\n\t\t\t\t\t\t\t\t\t<option>\r\n\t\t\t\t\t\t\t\t\t");
-            
-            #line 47 "D:\Codegen\t4Console\t4Console\PageTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(option.AttributeValue));
-            
-            #line default
-            #line hidden
-            this.Write("\r\n\t\t\t\t\t\t\t\t\t</option>\r\n\t\t\t\t\t\t\t");
-            
-            #line 49 "D:\Codegen\t4Console\t4Console\PageTemplate.tt"
-
-							}
-							
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t\t\t\t\t</select>\r\n\t\t\t\t\t\t</td>\r\n\t\t\t\t");
-            
-            #line 54 "D:\Codegen\t4Console\t4Console\PageTemplate.tt"
-
-				}
-				else if(field.FieldType == "button")
-				{
-				
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t\t\t<td>\r\n\t\t\t\t\t\t<input type=\"");
-            
-            #line 60 "D:\Codegen\t4Console\t4Console\PageTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldType ?? "text"));
-            
-            #line default
-            #line hidden
-            this.Write("\" id=\"");
-            
-            #line 60 "D:\Codegen\t4Console\t4Console\PageTemplate.tt"
+            #line 14 "D:\Codegen\t4Console\t4Console\Templates\ScriptTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
             
             #line default
             #line hidden
-            this.Write("\" name=\"");
+            this.Write("Div\").required = true;\r\n\t}\r\n\r\n\tfunction  ");
             
-            #line 60 "D:\Codegen\t4Console\t4Console\PageTemplate.tt"
+            #line 17 "D:\Codegen\t4Console\t4Console\Templates\ScriptTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
             
             #line default
             #line hidden
-            this.Write("\" value =\"");
+            this.Write("NotRequired() {\r\n\t\tdocument.getElementById(\"");
             
-            #line 60 "D:\Codegen\t4Console\t4Console\PageTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(field.DisplayName));
-            
-            #line default
-            #line hidden
-            this.Write("\" />\r\n\t\t\t\t\t</td>\r\n\t\t\t\t");
-            
-            #line 62 "D:\Codegen\t4Console\t4Console\PageTemplate.tt"
-
-				}
-				else
-				{
-				
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t\t\t<td>\r\n\t\t\t\t\t\t<input type=\"");
-            
-            #line 68 "D:\Codegen\t4Console\t4Console\PageTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldType ?? "text"));
-            
-            #line default
-            #line hidden
-            this.Write("\" id=\"");
-            
-            #line 68 "D:\Codegen\t4Console\t4Console\PageTemplate.tt"
+            #line 18 "D:\Codegen\t4Console\t4Console\Templates\ScriptTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
             
             #line default
             #line hidden
-            this.Write("\" name=\"");
+            this.Write("Div\").required = false;\r\n\t}\r\n");
             
-            #line 68 "D:\Codegen\t4Console\t4Console\PageTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
-            
-            #line default
-            #line hidden
-            this.Write("\" />\r\n\t\t\t\t\t</td>\r\n\t\t\t\t");
-            
-            #line 70 "D:\Codegen\t4Console\t4Console\PageTemplate.tt"
+            #line 20 "D:\Codegen\t4Console\t4Console\Templates\ScriptTemplate.tt"
 
-				}
-				
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t\t</tr>\r\n\t\t\t");
-            
-            #line 74 "D:\Codegen\t4Console\t4Console\PageTemplate.tt"
+	}
 
-			} 
-			
             
             #line default
             #line hidden
-            this.Write("\t\t\t\r\n\t\t</table>\r\n\t</body>\r\n</html>\r\n\r\n");
+            this.Write("\t});\r\n</script>\t\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 82 "D:\Codegen\t4Console\t4Console\PageTemplate.tt"
- 
-	public string Name { get; set;}
-	public List<Models.Field> fields { get; set;}
-	public List<Models.Domain> domainData { get; set;}
+        #line 25 "D:\Codegen\t4Console\t4Console\Templates\ScriptTemplate.tt"
+
+	public List<Field> fields {get;set;}
 
         
         #line default
@@ -233,7 +96,7 @@ namespace t4Console
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public class PageTemplateBase
+    public class ScriptTemplateBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

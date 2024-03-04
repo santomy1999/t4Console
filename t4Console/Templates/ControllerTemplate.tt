@@ -74,8 +74,11 @@ namespace <#= ProjectName #>.Controllers
 			{
 				var varName = field.FieldName.ToLower();
 #>			
-			var <#=varName #>Option = <#=field.FieldName#>Domains.GetDropDown(_model.<#=field.FieldName#>);
-			_model.<#=field.FieldName#>SelectList.Add(new SelectListItem { Text = <#=varName #>Option.Text , Value = <#=varName #>Option.Value });
+			if(_model.<#=field.FieldName#>!=null)
+			{
+				var <#=varName #>Option = <#=field.FieldName#>Domains.GetDropDown(_model.<#=field.FieldName#>);
+				_model.<#=field.FieldName#>SelectList.Add(new SelectListItem { Text = <#=varName #>Option.Text , Value = <#=varName #>Option.Value });
+			}
 <#
 			}
 #>

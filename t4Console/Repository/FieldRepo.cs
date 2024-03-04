@@ -32,6 +32,10 @@ namespace t4Console.Repository
             return await _dbContext.Domains.Where(d => d.PageId == pageId).OrderBy(d => d.DomainSeq).ToListAsync();
            
         }
+        public async Task<List<Field>> getRequiredConditionFields(int pageId)
+        {
+            return await _dbContext.Fields.Where(f=>f.PageId==pageId && f.ReqCondition!=null ).ToListAsync();
+        }
         public async Task<List<Domain>> GetFieldDomains(int FieldId)
         {
            return await _dbContext.Domains.Where(d => d.FieldId == FieldId).OrderBy(d => d.DomainSeq).ToListAsync();

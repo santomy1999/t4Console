@@ -4,6 +4,10 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace= "t4Console.Models" #>
+<#
+	var conditions = fields.Where(d => d.ReqCondition != null || d.DispCondition != null).ToList();
+    bool scriptNeeded = conditions.Any();
+#>
 @model <#=page.PageIdentifier#>Model
 @{
     ViewData["Title"] = "<#= Name#>";
@@ -24,20 +28,18 @@
 		if(field.FieldType == "select")
 		{
 #>
-				<div class="col-sm-4 themed-grid-col mb-3">
+				<div class="col-sm-4 themed-grid-col mb-3" id="<#= field.FieldName #>Div">
 					<label asp-for="<#= field.FieldName #>"><#= field.DisplayName #></label>
 					<select asp-for="<#= field.FieldName #>" asp-items="Model.<#= field.FieldName #>SelectList" class="form-select" <# if(Convert.ToBoolean(field.Required)){#>required<#}#> >
 						<option value="">Choose...</option>
-		
 					</select>
-	<#= field.DispCondition!=null ? field.DispCondition : "" #>
 				</div>
 <#
 		}
 		else if(field.FieldType == "checkbox")
 		{
 #>
-				<div class="col-sm-4 themed-grid-col mb-3">
+				<div class="col-sm-4 themed-grid-col mb-3" id="<#= field.FieldName #>Div">
 					<input  asp-for="<#= field.FieldName #>" type="checkbox" class="form-check-input" id="<#= field.FieldName #>">
 					<label  asp-for="<#= field.FieldName #>" class="form-check-label" for="<#= field.FieldName #>"><#= field.DisplayName #></label>
 				</div>
@@ -53,7 +55,7 @@
 			foreach(var option in options)
 			{
 #>				
-				<div class="col-sm-4 themed-grid-col mb-3">
+				<div class="col-sm-4 themed-grid-col mb-3" id="<#= field.FieldName #>Div">
 					<input  asp-for="<#= field.FieldName #>" type="checkbox" class="form-check-input" id="<#= option.DomainName#>">
 					<label  asp-for="<#= field.FieldName #>" class="form-check-label" for="<#= option.DomainName #>"><#= option.AttributeValue #></label>
 				</div>
@@ -63,7 +65,7 @@
 		else if(field.FieldType == "Radio")
 		{
 #>
-				<div class="col-sm-4 themed-grid-col">
+				<div class="col-sm-4 themed-grid-col" id="<#= field.FieldName #>Div">
                     <div>
                         <label><#= field.DisplayName #></label>
                     </div>
@@ -72,7 +74,7 @@
 			{
 #>
 					<div class="form-check form-check-inline  mt-2 mb-4">
-                        @Html.RadioButtonFor(m => m.<#= field.FieldName #>,"<#= option.AttributeValue #>",new { id = "<#= field.FieldName #><#= option.DomainName #>" ,@class ="form-check-input"})
+                        @Html.RadioButtonFor(m => m.<#= field.FieldName #>,"<#= option.AttributeValue #>",new { id = "<#= field.FieldName #><#= option.DomainName #>" ,@class ="form-check-input" <# if(Convert.ToBoolean(field.Required)){#>,required ="required"<#}#> })
                         <label for="<#= field.FieldName #><#= option.DomainName #>" class="form-check-label"><#= option.AttributeValue #></label>
                     </div>
 <#
@@ -102,7 +104,7 @@
 					break;
 			}
 #>
-				<div class="col-sm-4 themed-grid-col">
+				<div class="col-sm-4 themed-grid-col" id="<#= field.FieldName #>Div">
 					<label  asp-for="<#= field.FieldName #>"><#= field.DisplayName#></label>
 					<input  asp-for="<#= field.FieldName #>" type="<#= inputType#>" class="form-control text-center" id="<#= field.FieldName#>" placeholder="" <# if(Convert.ToBoolean(field.Required)){#>required<#}#>>
 					
@@ -125,7 +127,7 @@
 <#
 		if(PreviousPage !=null){
 		
-#>
+#> 
 				<div class="col-sm-2 themed-grid-col mb-3">
 					<button asp-controller = "<#= PreviousPage.PageIdentifier#>" asp-action= "Index" class="btn btn-primary">Previous</button>
 				</div>
@@ -154,6 +156,8 @@
 		</form>
 	</div>
 </div>
+
+<#= string.IsNullOrEmpty(ScriptTemplateString)?"":ScriptTemplateString#>
 <#+ 
 	public string Name { get; set;}
 	public string ProjectName {get; set ;}
@@ -162,7 +166,7 @@
     public List<Domain> domainValues {get; set;}
 	public Page? NextPage {get; set;}
 	public Page? PreviousPage {get; set;}
-
+	public string? ScriptTemplateString {get; set;}
 #>
 
 

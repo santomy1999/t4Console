@@ -21,11 +21,12 @@ namespace t4Console.Controllers
         }
         public async Task GenerateView(Page page,Page? Previous, Page? Next)
         {
-            ProjectData.ProjectName.ToLowerInvariant();
             var fields = await _fieldRepo.getFields(page.PageId);
             fields = _conditionHandler.GenerateConditions(fields);
             var domainValues = await _fieldRepo.GetPageDomains(page.PageId);
-            var indexView = new View_Index_Template()
+            var scriptTemplateString = await GenerateScripts(page);
+			var sd = string.IsNullOrEmpty(scriptTemplateString) ? scriptTemplateString : "";
+			var indexView = new View_Index_Template()
             {
                 ProjectName = ProjectData.ProjectName,
                 page = page,
@@ -33,8 +34,10 @@ namespace t4Console.Controllers
                 fields= fields,
                 domainValues = domainValues,
                 NextPage = Next,
-                PreviousPage = Previous
-            };
+                PreviousPage = Previous,
+				ScriptTemplateString = scriptTemplateString
+			};
+            
 			var detailsView = new View_Details_Template()
 			{
 				ProjectName = ProjectData.ProjectName,
@@ -58,6 +61,19 @@ namespace t4Console.Controllers
 			File.WriteAllText(indexFileName, indexViewString);
 			File.WriteAllText(detailsFileName, detailsViewString);
 		}
-        
+        public async Task<string> GenerateScripts(Page page)
+        {
+			var fields = await _fieldRepo.getRequiredConditionFields(page.PageId);
+            if(!fields.Any())
+            {
+                return null;
+            }
+			var scriptTemplate = new ScriptTemplate()
+			{
+				fields = fields
+			};
+			var scriptTemplateString = scriptTemplate.TransformText();
+            return scriptTemplateString;
+		}
     }
 }
