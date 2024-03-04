@@ -12,27 +12,27 @@ namespace t4Console.Models
         public static string ProjectLocation = "";
         public static string getSaveLocation()
         {
-            return ProjectLocation+ "\\" + ProjectName;  
+            return ProjectLocation+ "\\" + ProjectName + "\\" + ProjectName;  
         }
         public static string getLayoutSaveLocation()
         {
-            return ProjectLocation + "\\" + ProjectName + "\\Views\\" + "Shared\\";
+            return (getSaveLocation() + "\\Views\\" + "Shared\\");
         }
         public static string getModelSaveLocation()
         {
-            return ProjectLocation + "\\" + ProjectName  + "\\Models\\";
+            return (getSaveLocation() + "\\Models\\");
         }
         public static string getControllerSaveLocation()
         {
-            return ProjectLocation + "\\" + ProjectName  + "\\Controllers\\";
+            return (getSaveLocation() + "\\Controllers\\");
         }
         public static string getViewSaveLocation(string viewName)
         {
-            return ProjectLocation + "\\" + ProjectName  + "\\Views\\" + viewName;
+            return (getSaveLocation()  + "\\Views\\" + viewName);
         }
         public static string getDomainModelSaveLocation()
         {
-			return ProjectLocation + "\\" + ProjectName + "\\Models\\" + "DomainValues";
+			return getSaveLocation() + "\\Models\\" + "DomainValues";
 		}
     }
 }
