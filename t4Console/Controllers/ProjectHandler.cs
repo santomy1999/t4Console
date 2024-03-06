@@ -30,9 +30,12 @@ namespace t4Console.Controllers
 			if (!Directory.Exists(location+ "\\" + projectName))           {
 				Directory.CreateDirectory(location + "\\" + projectName);
 				_process.StartInfo.WorkingDirectory = location+ "\\" + projectName;
+				//Create solution
 				var result = RunCmdCommand("dotnet", $"new sln -n {projectName}");
+				//Create project
                     result = RunCmdCommand("dotnet", $"new mvc -o {projectName}");
-					result = RunCmdCommand("dotnet", $"sln add {projectName}/{projectName}.csproj");
+				//Add project to the solution
+				result = RunCmdCommand("dotnet", $"sln add {projectName}/{projectName}.csproj");
 				// Dispose the process
 				_process.Dispose();
 				return result;
