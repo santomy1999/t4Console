@@ -25,6 +25,7 @@ namespace t4Console.Controllers
             fields = _conditionHandler.GenerateConditions(fields);
             var domainValues = await _fieldRepo.GetPageDomains(page.PageId);
             var scriptTemplateString = await GenerateScripts(page);
+            
 			var sd = string.IsNullOrEmpty(scriptTemplateString) ? scriptTemplateString : "";
 			var indexView = new View_Index_Template()
             {

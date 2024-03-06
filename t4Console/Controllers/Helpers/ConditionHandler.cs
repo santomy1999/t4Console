@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using t4Console.Models;
 
@@ -15,26 +16,40 @@ namespace t4Console.Controllers.Helpers
         }
         public List<Field> GenerateConditions(List<Field> fields)
         {
-
+			//(IncludedInBlktFromPrsnlProp[.='Yes']) or ((EQCovIndicatorFromPrsnlProp[.='Yes, Included in Blanket']) and (IncludedInBlktFromPrsnlProp[.='No']))
 			for (int i = 0; i < fields.Count; i++)
 			{
 				var field = fields[i];
 				if (field.DispCondition != null)
 				{
-					field.DispCondition=field.DispCondition.Replace("[.", "").Replace("]", "").Replace("'","\"");
-					fields[i] = field;
+					field.DispCondition = GenerateReqCondition(field);
+					var VariableList = ExtractVariables(field);
 				}
-				
-			}
+				if (field.ReqCondition != null)
+				{
+					var VariableList = ExtractVariables(field);
+					field.ReqCondition = GenerateReqCondition(field);
+				}
+			}	
 			return fields;
         }
-        public Field GenerateReqCondition(Field field)
+        public string GenerateReqCondition(Field field)
         {
-            return field;
+			var conditionString = field.ReqCondition;
+			string cSharpCondition = conditionString;
+			string varName = conditionString.Split("[.=")[0];
+			
+			conditionString = conditionString.Split(varName)[1];
+			Console.WriteLine(varName);
+			cSharpCondition = conditionString.Replace(".=", varName + " == ").Replace("'", "\"").Replace("[", "").Replace("]", "").Replace("or", " || ");
+			cSharpCondition = "(" + cSharpCondition + ")";
+			return cSharpCondition;
+
         }
-		public Field GenerateDispCondition(Field field)
+		public List<string> ExtractVariables(Field field)
 		{
-			return field;
+			List<string> variableList = new List<string>();
+			return variableList;
 		}
 	}
 }

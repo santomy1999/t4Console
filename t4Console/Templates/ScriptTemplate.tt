@@ -4,24 +4,81 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace= "t4Console.Models" #>
+<#
+if(fields.Any())
+{
+#>
 <script>
-	document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("DOMContentLoaded", function () {
 <#
 	foreach(var field in fields)
 	{
 #>
-	function <#=field.FieldName#>Required() {
-		document.getElementById("<#=field.FieldName#>Div").required = true;
-	}
-
-	function  <#=field.FieldName#>NotRequired() {
-		document.getElementById("<#=field.FieldName#>Div").required = false;
-	}
 <#
+		if(field.FieldType == "select")
+		{
+			if(field.ReqCondition != null)
+			{
+#>
+		function required<#= field.FieldName#>(){
+			document.getElementById("<#= field.FieldName#>").required = true;
+		}
+		function NotRequiredNCBYrs() {
+			document.getElementById("<#= field.FieldName#>").required = false;
+		}
+<#
+			}
+#>
+<#
+			if(field.DispCondition != null)
+			{
+#>
+		function unHide<#= field.FieldName#>() {
+			document.getElementById("<#= field.FieldName#>Div").style.display = "block";
+		}
+
+		// Function to hide the dropdown when "No" radio button is clicked
+		function hide<#= field.FieldName#>() {
+			document.getElementById("<#= field.FieldName#>Div").style.display = "none";
+		}
+<#
+			}
+			if(field.ReqCondition != null ||field.DispCondition != null)
+			{
+#>
+		var NCBGroup = document.getElementById("NCBDiv");
+		NCBGroup.addEventListener("change", function (event) {
+			// Check which radio button is selected within the group
+			var selectedRadioButton = event.target;
+			var NCB = selectedRadioButton.value;
+
+			if <#=field.DispCondition#> 
+			{
+				unHideNCBYrs();
+			}
+			else{
+				hideNCBYrs();
+			}
+			if <#=field.ReqCondition#> {
+				requiredNCBYrs();
+			}
+			else {
+				NotRequiredNCBYrs();
+			}
+			// Call a function or perform any actions when NCB value changes
+		});
+<#
+			}
+		}
 	}
 #>
+
 	});
-</script>	
+</script>
+<#
+}
+#>
 <#+
 	public List<Field> fields {get;set;}
+	public List<ConditionModel> ControlVar {get; set;}
 #>

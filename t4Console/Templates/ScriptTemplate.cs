@@ -29,9 +29,18 @@ namespace t4Console.Templates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("<script>\r\n\tdocument.addEventListener(\'DOMContentLoaded\', function () {\r\n");
             
-            #line 9 "D:\Codegen\t4Console\t4Console\Templates\ScriptTemplate.tt"
+            #line 7 "D:\Codegen\t4Console\t4Console\Templates\ScriptTemplate.tt"
+
+if(fields.Any())
+{
+
+            
+            #line default
+            #line hidden
+            this.Write("<script>\r\ndocument.addEventListener(\"DOMContentLoaded\", function () {\r\n");
+            
+            #line 13 "D:\Codegen\t4Console\t4Console\Templates\ScriptTemplate.tt"
 
 	foreach(var field in fields)
 	{
@@ -39,50 +48,145 @@ namespace t4Console.Templates
             
             #line default
             #line hidden
-            this.Write("\tfunction ");
-            
-            #line 13 "D:\Codegen\t4Console\t4Console\Templates\ScriptTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
-            
-            #line default
-            #line hidden
-            this.Write("Required() {\r\n\t\tdocument.getElementById(\"");
-            
-            #line 14 "D:\Codegen\t4Console\t4Console\Templates\ScriptTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
-            
-            #line default
-            #line hidden
-            this.Write("Div\").required = true;\r\n\t}\r\n\r\n\tfunction  ");
             
             #line 17 "D:\Codegen\t4Console\t4Console\Templates\ScriptTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
-            
-            #line default
-            #line hidden
-            this.Write("NotRequired() {\r\n\t\tdocument.getElementById(\"");
-            
-            #line 18 "D:\Codegen\t4Console\t4Console\Templates\ScriptTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
-            
-            #line default
-            #line hidden
-            this.Write("Div\").required = false;\r\n\t}\r\n");
-            
-            #line 20 "D:\Codegen\t4Console\t4Console\Templates\ScriptTemplate.tt"
 
+		if(field.FieldType == "select")
+		{
+			if(field.ReqCondition != null)
+			{
+
+            
+            #line default
+            #line hidden
+            this.Write("\t\tfunction required");
+            
+            #line 23 "D:\Codegen\t4Console\t4Console\Templates\ScriptTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
+            
+            #line default
+            #line hidden
+            this.Write("(){\r\n\t\t\tdocument.getElementById(\"");
+            
+            #line 24 "D:\Codegen\t4Console\t4Console\Templates\ScriptTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
+            
+            #line default
+            #line hidden
+            this.Write("\").required = true;\r\n\t\t}\r\n\t\tfunction NotRequiredNCBYrs() {\r\n\t\t\tdocument.getElemen" +
+                    "tById(\"");
+            
+            #line 27 "D:\Codegen\t4Console\t4Console\Templates\ScriptTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
+            
+            #line default
+            #line hidden
+            this.Write("\").required = false;\r\n\t\t}\r\n");
+            
+            #line 29 "D:\Codegen\t4Console\t4Console\Templates\ScriptTemplate.tt"
+
+			}
+
+            
+            #line default
+            #line hidden
+            
+            #line 32 "D:\Codegen\t4Console\t4Console\Templates\ScriptTemplate.tt"
+
+			if(field.DispCondition != null)
+			{
+
+            
+            #line default
+            #line hidden
+            this.Write("\t\tfunction unHide");
+            
+            #line 36 "D:\Codegen\t4Console\t4Console\Templates\ScriptTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
+            
+            #line default
+            #line hidden
+            this.Write("() {\r\n\t\t\tdocument.getElementById(\"");
+            
+            #line 37 "D:\Codegen\t4Console\t4Console\Templates\ScriptTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
+            
+            #line default
+            #line hidden
+            this.Write("Div\").style.display = \"block\";\r\n\t\t}\r\n\r\n\t\t// Function to hide the dropdown when \"N" +
+                    "o\" radio button is clicked\r\n\t\tfunction hide");
+            
+            #line 41 "D:\Codegen\t4Console\t4Console\Templates\ScriptTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
+            
+            #line default
+            #line hidden
+            this.Write("() {\r\n\t\t\tdocument.getElementById(\"");
+            
+            #line 42 "D:\Codegen\t4Console\t4Console\Templates\ScriptTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.FieldName));
+            
+            #line default
+            #line hidden
+            this.Write("Div\").style.display = \"none\";\r\n\t\t}\r\n");
+            
+            #line 44 "D:\Codegen\t4Console\t4Console\Templates\ScriptTemplate.tt"
+
+			}
+			if(field.ReqCondition != null ||field.DispCondition != null)
+			{
+
+            
+            #line default
+            #line hidden
+            this.Write(@"		var NCBGroup = document.getElementById(""NCBDiv"");
+		NCBGroup.addEventListener(""change"", function (event) {
+			// Check which radio button is selected within the group
+			var selectedRadioButton = event.target;
+			var NCB = selectedRadioButton.value;
+
+			if ");
+            
+            #line 55 "D:\Codegen\t4Console\t4Console\Templates\ScriptTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.DispCondition));
+            
+            #line default
+            #line hidden
+            this.Write(" \r\n\t\t\t{\r\n\t\t\t\tunHideNCBYrs();\r\n\t\t\t}\r\n\t\t\telse{\r\n\t\t\t\thideNCBYrs();\r\n\t\t\t}\r\n\t\t\tif ");
+            
+            #line 62 "D:\Codegen\t4Console\t4Console\Templates\ScriptTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.ReqCondition));
+            
+            #line default
+            #line hidden
+            this.Write(" {\r\n\t\t\t\trequiredNCBYrs();\r\n\t\t\t}\r\n\t\t\telse {\r\n\t\t\t\tNotRequiredNCBYrs();\r\n\t\t\t}\r\n\t\t\t//" +
+                    " Call a function or perform any actions when NCB value changes\r\n\t\t});\r\n");
+            
+            #line 70 "D:\Codegen\t4Console\t4Console\Templates\ScriptTemplate.tt"
+
+			}
+		}
 	}
 
             
             #line default
             #line hidden
-            this.Write("\t});\r\n</script>\t\r\n");
+            this.Write("\r\n\t});\r\n</script>\r\n");
+            
+            #line 78 "D:\Codegen\t4Console\t4Console\Templates\ScriptTemplate.tt"
+
+}
+
+            
+            #line default
+            #line hidden
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 25 "D:\Codegen\t4Console\t4Console\Templates\ScriptTemplate.tt"
+        #line 81 "D:\Codegen\t4Console\t4Console\Templates\ScriptTemplate.tt"
 
 	public List<Field> fields {get;set;}
+	public List<ConditionModel> ControlVar {get; set;}
 
         
         #line default
